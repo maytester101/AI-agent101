@@ -5,8 +5,9 @@ A production-ready web-based AI agent that autonomously scans Node.js Express pr
 ## 🚀 Features
 
 ### Core Capabilities
+- **Test by URL (web-friendly)**: Anyone can test a public API by entering its base URL and OpenAPI/Swagger URL (or add endpoints manually). No local code needed. Ideal for Vercel + hosted backend.
 - **Automatic Project Scanning**: Scans local Node.js Express projects to find route files
-- **Endpoint Extraction**: Automatically extracts all API endpoints (GET, POST, PUT, DELETE, PATCH)
+- **Endpoint Extraction**: Automatically extracts all API endpoints (GET, POST, PUT, DELETE, PATCH) from code or from OpenAPI specs
 - **Authentication Detection**: Detects JWT authentication logic and login routes
 - **AI-Powered Test Generation**: Uses Ollama (local AI) to generate comprehensive Playwright tests
 - **Test Execution**: Runs generated tests using Playwright's API testing mode
@@ -160,6 +161,15 @@ npm start
 ```
 
 Sample API will run on `http://localhost:3000` (or change port if frontend is using 3000)
+
+## 🌐 Deploy for Web (Vercel + Backend)
+
+To let **other people use the app in the browser** to test their APIs by URL:
+
+1. **Frontend** → Deploy to [Vercel](https://vercel.com) (set Root Directory to `frontend`, add `NEXT_PUBLIC_API_URL` = your backend URL).
+2. **Backend** → Deploy to [Railway](https://railway.app), [Render](https://render.com), or [Fly.io](https://fly.io) (set `CORS_ORIGIN` to your Vercel URL).
+
+See **[DEPLOYMENT.md](./DEPLOYMENT.md)** for step-by-step instructions and CORS/Playwright/Ollama notes.
 
 ## 🐳 Docker Setup
 

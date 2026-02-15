@@ -7,6 +7,8 @@ import Console from '@/components/Console';
 import Reports from '@/components/Reports';
 import History from '@/components/History';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
 export default function Home() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [logs, setLogs] = useState<Array<{ message: string; type: string; timestamp: string }>>([]);
@@ -14,8 +16,7 @@ export default function Home() {
   const [dashboardData, setDashboardData] = useState<any>(null);
 
   useEffect(() => {
-    // Connect to Socket.io server
-    const newSocket = io('http://localhost:3001');
+    const newSocket = io(API_URL);
     setSocket(newSocket);
 
     // Listen for logs
