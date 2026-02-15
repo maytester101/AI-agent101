@@ -1,0 +1,33 @@
+{
+  "name": "ai-qa-engineer",
+  "version": "1.0.0",
+  "description": "AI QA Engineer - Autonomous API Testing Agent",
+  "private": true,
+  "scripts": {
+    "setup": "npm run setup:backend && npm run setup:frontend && npm run setup:sample",
+    "setup:backend": "cd backend && npm install",
+    "setup:frontend": "cd frontend && npm install",
+    "setup:sample": "cd sample-api && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:sample": "cd sample-api && npm start",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "keywords": [
+    "ai",
+    "qa",
+    "testing",
+    "api",
+    "automation",
+    "playwright",
+    "ollama"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

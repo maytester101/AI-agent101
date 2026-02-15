@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+.next/
+playwright-tests/generated/
+playwright-tests/temp/
+coverage/
+*.test.ts

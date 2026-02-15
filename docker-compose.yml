@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-qa-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    command: serve
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-qa-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL=deepseek-coder
+      - CORS_ORIGIN=http://localhost:3000
+    volumes:
+      - ./playwright-tests:/app/playwright-tests
+      - ./sample-api:/app/sample-api
+    depends_on:
+      - ollama
+    networks:
+      - ai-qa-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ai-qa-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+    depends_on:
+      - backend
+    networks:
+      - ai-qa-network
+
+  sample-api:
+    build:
+      context: ./sample-api
+    container_name: ai-qa-sample-api
+    ports:
+      - "3000:3000"
+    networks:
+      - ai-qa-network
+
+volumes:
+  ollama_data:
+
+networks:
+  ai-qa-network:
+    driver: bridge
